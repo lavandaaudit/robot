@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ibonarium • AI Resonator Analyzer v3.0</title>
+<title>Ibonarium • AI Resonator Analyzer v4.0</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -22,7 +22,7 @@ canvas {position:fixed; inset:0; z-index:0;}
   position:relative; z-index:2; 
   display:flex; flex-direction:column; 
   align-items:center; 
-  padding:20px; gap:10px; 
+  padding:30px 20px; gap:10px; 
   text-align:center; 
   font-size:13px; line-height:1.4;
 }
@@ -58,6 +58,12 @@ canvas {position:fixed; inset:0; z-index:0;}
   text-shadow:0 0 15px rgba(0, 255, 255, 0.6);
 }
 
+.category-header-pink {
+  border-bottom:2px solid rgba(255, 0, 255, 0.5);
+  color: #f0f;
+  text-shadow:0 0 15px rgba(255, 0, 255, 0.6);
+}
+
 /* ===== МАТРИЦЯ АНАЛІТИКИ ===== */
 .alert-matrix {
   width:90%; max-width:900px;
@@ -72,6 +78,24 @@ canvas {position:fixed; inset:0; z-index:0;}
   box-shadow: 0 0 30px rgba(0,255,255,0.03);
 }
 
+.ai-matrix {
+  border-left: 4px solid #f0f;
+  box-shadow: 0 0 35px rgba(255,0,255,0.05);
+}
+.ai-matrix::after {
+  content: "◉ NEURAL REPORT COMPILED";
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  background: #000;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #f0f;
+  border: 1px solid #f0f;
+  animation: pulse 2s infinite;
+}
+
 .matrix-title {
   font-family: 'Cinzel', serif;
   font-size: 16px;
@@ -79,6 +103,7 @@ canvas {position:fixed; inset:0; z-index:0;}
   margin-bottom: 12px;
   font-weight: bold;
 }
+.pink-title { color: #f0f; border-bottom: 1px dashed #f0f; padding-bottom: 8px;}
 
 .alert-desc {
   background: rgba(255, 255, 255, 0.02);
@@ -88,20 +113,9 @@ canvas {position:fixed; inset:0; z-index:0;}
   line-height: 1.6;
 }
 
-.alert-desc ul {
-  list-style: none;
-  padding-left: 5px;
-}
-
-.alert-desc li {
-  margin-bottom: 8px;
-  color: #cceeff;
-}
-
-.alert-desc li b {
-  color: #fff;
-  font-weight: bold;
-}
+.alert-desc ul { list-style: none; padding-left: 5px; }
+.alert-desc li { margin-bottom: 8px; color: #cceeff; }
+.alert-desc li b { color: #fff; font-weight: bold; }
 
 .algo-section {
   position: relative;
@@ -109,7 +123,6 @@ canvas {position:fixed; inset:0; z-index:0;}
   padding-top: 20px;
   margin-top: 10px;
 }
-
 .algo-section::before {
   content: "◉ АВТОМАТИЧНИЙ ВИСНОВОК АЛГОРИТМУ:";
   display: block;
@@ -131,7 +144,7 @@ canvas {position:fixed; inset:0; z-index:0;}
   width: 100%;
 }
 
-.bg-danger { background: linear-gradient(90deg, rgba(255,0,0,0.2), rgba(0,0,0,0)); border-left: 4px solid #f00; text-shadow: 0 0 5px #f00; }
+.bg-danger { background: linear-gradient(90deg, rgba(255,0,0,0.2), rgba(0,0,0,0)); border-left: 4px solid #f0f; text-shadow: 0 0 5px #f00; border-color: #f00;}
 .bg-warning { background: linear-gradient(90deg, rgba(255,165,0,0.2), rgba(0,0,0,0)); border-left: 4px solid #ffa500; text-shadow: 0 0 5px #ffa500; }
 .bg-success { background: linear-gradient(90deg, rgba(0,255,0,0.2), rgba(0,0,0,0)); border-left: 4px solid #0f0; text-shadow: 0 0 5px #0f0; }
 .bg-info { background: linear-gradient(90deg, rgba(0,255,255,0.1), rgba(0,0,0,0)); border-left: 4px solid #0ff; text-shadow: 0 0 5px #0ff; }
@@ -145,15 +158,32 @@ canvas {position:fixed; inset:0; z-index:0;}
   text-shadow: none;
 }
 
+.report-p {
+  font-size: 14.5px; 
+  color: #d1f2ff; 
+  line-height: 1.7; 
+  padding-top: 15px; 
+  border-top: 1px solid #333;
+}
+.report-p span.head { color: #f0f; font-weight: bold; letter-spacing: 1px;}
+.report-c {
+  font-size: 14.5px; 
+  color: #d1f2ff; 
+  line-height: 1.7; 
+  padding-top: 10px;
+}
+.report-c span.head { color: #0ff; font-weight: bold; letter-spacing: 1px;}
+
 /* ===== ВІДЖЕТИ ===== */
 .tv-widget {
   width:92vw; max-width:900px; 
-  margin:10px 0;
+  margin:15px 0;
   border: 1px solid rgba(0, 255, 255, 0.15);
   background: #050505;
 }
 
 #footer {font-size:10px; opacity:0.3; margin:40px 0; font-family:'Space Grotesk', sans-serif;}
+@keyframes pulse { 0% {opacity:1;} 50% {opacity:0.4;} 100% {opacity:1;} }
 </style>
 </head>
 <body>
@@ -161,28 +191,24 @@ canvas {position:fixed; inset:0; z-index:0;}
 
 <div class="wrapper">
   <div id="header-title">IBONARIUM • RESONATOR</div>
-  <div id="subheader">AUTONOMOUS MACRO ANALYSIS ENGINE v3</div>
+  <div id="subheader">AUTONOMOUS MACRO ANALYSIS ENGINE v4</div>
 
   <!-- РЕЗОНАТОР 1 -->
   <div class="category-header">I. ГЛОБАЛЬНА ЛІКВІДНІСТЬ & РИЗИК</div>
-  
   <div class="alert-matrix">
     <div class="matrix-title">АНАЛІТИЧНА ДОВІДКА: ТИСК АКТИВІВ</div>
     <div class="alert-desc">
       <ul>
-        <li><b>DXY (Долар США):</b> Базова валюта світової ліквідності. Коли DXY падає, центробанки здешевлюють кредити — крипта стрімко росте.</li>
-        <li><b>S&P 500 (SPY):</b> "Барометр" Уолл-Стріт. Відображає, чи інвестує інституційний капітал. Його падіння завжди тягне крипту вниз (кореляція фондового ринку).</li>
-        <li><b>Золото:</b> Стандарт страху. Якщо Золото пробиває максимуми разом з біткоїном, світ ховається від інфляції (знецінення грошей).</li>
-        <li><b>Стратегія на графіку:</b> Шукайте "ножиці". Якщо лінія DXY йде вниз, а лінія BTC йде вгору — це найсильніший сигнал для інвестування.</li>
+        <li><b>DXY (Долар США):</b> Базова валюта ліквідності. Коли DXY падає, центробанки здешевлюють кредити — крипта стрімко росте.</li>
+        <li><b>S&P 500 (SPY):</b> "Барометр" Уолл-Стріт. Відображає інституційний капітал. Його падіння завжди тягне крипту вниз.</li>
+        <li><b>Золото:</b> Стандарт страху. Якщо Золото пробиває максимуми, світ готується до знецінення грошей.</li>
       </ul>
     </div>
-
     <div class="algo-section" id="algo-risk">
-      <div class="alert-box bg-info">⏳ Формую з'єднання: аналіз котирувань BTC, PAXG (Золото) та EUR (DXY Проксі)...</div>
+      <div class="alert-box bg-info">⏳ Формую з'єднання: аналіз котирувань BTC, Золота та DXY...</div>
     </div>
   </div>
-
-  <div class="tv-widget" style="height:500px;">
+  <div class="tv-widget" style="height:450px;">
     <div class="tradingview-widget-container">
       <div class="tradingview-widget-container__widget"></div>
       <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
@@ -193,18 +219,9 @@ canvas {position:fixed; inset:0; z-index:0;}
           [ "Золото (Захист)", "OANDA:XAUUSD|1D" ],
           [ "DXY ETF (Тиск Долара)", "AMEX:UUP|1D" ]
         ],
-        "chartOnly": false,
-        "width": "100%",
-        "height": "100%",
-        "locale": "uk",
-        "colorTheme": "dark",
-        "gridLineColor": "rgba(255, 255, 255, 0.05)",
-        "scalePosition": "right",
-        "scaleMode": "Percentage",
-        "fontFamily": "inherit",
-        "fontColor": "#9fe7ff",
-        "isTransparent": true,
-        "lineType": 0
+        "chartOnly": false, "width": "100%", "height": "100%", "locale": "uk", "colorTheme": "dark",
+        "gridLineColor": "rgba(255, 255, 255, 0.05)", "scalePosition": "right", "scaleMode": "Percentage",
+        "fontFamily": "inherit", "fontColor": "#9fe7ff", "isTransparent": true, "lineType": 0
       }
       </script>
     </div>
@@ -212,23 +229,19 @@ canvas {position:fixed; inset:0; z-index:0;}
 
   <!-- РЕЗОНАТОР 2 -->
   <div class="category-header">II. ІНФЛЯЦІЙНО-ПРОМИСЛОВИЙ ТИСК</div>
-  
   <div class="alert-matrix">
     <div class="matrix-title">АНАЛІТИЧНА ДОВІДКА: ПУЛЬС ЕКОНОМІКИ</div>
     <div class="alert-desc">
       <ul>
-        <li><b>Нафта WTI:</b> Це вартість "крові" економіки. Дорога нафта = дорога логістика = зростання інфляції. Висока інфляція змушує центробанки "сушити" ринок високими ставками. <i>Різка нафта = негатив для спекулянтів.</i></li>
-        <li><b>Мідь (Доктор Мідь):</b> Використовується скрізь від мікросхем до автомобілів. Коли вона росте швидше за золото, світова промисловість іде на зліт. Падіння міді віщує глобальну рецесію.</li>
-        <li><b>Стратегія на графіку:</b> Якщо Мідь високо, а Нафта внизу — ідеальні золоті умови для росту альткоїнів (дешева енергія + високе виробництво).</li>
+        <li><b>Нафта WTI:</b> Вартість "крові" економіки. Висока нафта = зростання інфляції = висока ставка ФРС (негатив для BTC).</li>
+        <li><b>Мідь (Доктор Мідь):</b> Маркер індустріального росту. Падіння Міді віщує глобальну рецесію.</li>
       </ul>
     </div>
-
     <div class="algo-section" id="algo-inflation">
-      <div class="alert-box bg-info">⏳ CORS Proxy: Зв'язок з Yahoo Finance для аналізу бареля WTI та Міді...</div>
+      <div class="alert-box bg-info">⏳ CORS Proxy: Зв'язок із Yahoo Finance для аналізу бареля WTI та Міді...</div>
     </div>
   </div>
-
-  <div class="tv-widget" style="height:500px;">
+  <div class="tv-widget" style="height:450px;">
     <div class="tradingview-widget-container">
       <div class="tradingview-widget-container__widget"></div>
       <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
@@ -239,18 +252,9 @@ canvas {position:fixed; inset:0; z-index:0;}
           [ "Мідь (Промисловість)", "OANDA:XCUUSD|1D" ],
           [ "Срібло", "OANDA:XAGUSD|1D" ]
         ],
-        "chartOnly": false,
-        "width": "100%",
-        "height": "100%",
-        "locale": "uk",
-        "colorTheme": "dark",
-        "gridLineColor": "rgba(255, 255, 255, 0.05)",
-        "scalePosition": "right",
-        "scaleMode": "Percentage",
-        "fontFamily": "inherit",
-        "fontColor": "#9fe7ff",
-        "isTransparent": true,
-        "lineType": 0
+        "chartOnly": false, "width": "100%", "height": "100%", "locale": "uk", "colorTheme": "dark",
+        "gridLineColor": "rgba(255, 255, 255, 0.05)", "scalePosition": "right", "scaleMode": "Percentage",
+        "fontFamily": "inherit", "fontColor": "#9fe7ff", "isTransparent": true, "lineType": 0
       }
       </script>
     </div>
@@ -258,23 +262,20 @@ canvas {position:fixed; inset:0; z-index:0;}
 
   <!-- РЕЗОНАТОР 3 -->
   <div class="category-header">III. ВНУТРІШНЬО-КРИПТОВИЙ ПЕРЕЛИВ</div>
-  
   <div class="alert-matrix">
     <div class="matrix-title">АНАЛІТИЧНА ДОВІДКА: ФАЗИ АЛЬТСЕЗОНУ</div>
     <div class="alert-desc">
       <ul>
-        <li><b>Фаза 1 (Біткоїн):</b> Ринок прокидається. Гроші заходять тільки у Біткоїн. Альти мовчать і дешевшають відносно BTC. Це "Вакуум Домінації".</li>
-        <li><b>Фаза 2 (Ethereum / Блакитні Фішки):</b> Гроші з Біткоїна після паузи переливаються у великі екосистеми (ETH, SOL). Графік BTC вирівнюється, ETH йде вверх.</li>
-        <li><b>Фаза 3-4 (Мем-коїни):</b> Останній етап. Шалений ріст Doge, Pepe. Це ознака перегріву ритейлу (натовпу). Після фантомного росту мемів як правило стається велика корекція (Дамп).</li>
+        <li><b>Фаза 1 (BTC Домінація):</b> Гроші заходять у Біткоїн. Альти страждають ("Вакуум").</li>
+        <li><b>Фаза 2 (Ethereum / L1):</b> Гроші з Біткоїна переливаються у великі екосистеми (ETH, SOL). Це справжній альтсезон.</li>
+        <li><b>Фаза 3 (Мем-коїни):</b> Шалений ріст Doge. Ознака перегріву маркету (натовп у Фомо). Фінальна стадія бичого циклу.</li>
       </ul>
     </div>
-
     <div class="algo-section" id="algo-alt">
-      <div class="alert-box bg-info">⏳ Алгоритм зчитує динаміку розриву між BTC, ETH, SOL та DOGE...</div>
+      <div class="alert-box bg-info">⏳ Алгоритм зчитує динаміку BTC, ETH, SOL та DOGE...</div>
     </div>
   </div>
-
-  <div class="tv-widget" style="height:500px;">
+  <div class="tv-widget" style="height:450px;">
     <div class="tradingview-widget-container">
       <div class="tradingview-widget-container__widget"></div>
       <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
@@ -285,86 +286,62 @@ canvas {position:fixed; inset:0; z-index:0;}
           [ "Solana (Швидкість)", "BINANCE:SOLUSDT|1D" ],
           [ "Dogecoin (Індикатор Натовпу)", "BINANCE:DOGEUSDT|1D" ]
         ],
-        "chartOnly": false,
-        "width": "100%",
-        "height": "100%",
-        "locale": "uk",
-        "colorTheme": "dark",
-        "gridLineColor": "rgba(255, 255, 255, 0.05)",
-        "scalePosition": "right",
-        "scaleMode": "Percentage",
-        "fontFamily": "inherit",
-        "fontColor": "#9fe7ff",
-        "isTransparent": true,
-        "lineType": 0
+        "chartOnly": false, "width": "100%", "height": "100%", "locale": "uk", "colorTheme": "dark",
+        "gridLineColor": "rgba(255, 255, 255, 0.05)", "scalePosition": "right", "scaleMode": "Percentage",
+        "fontFamily": "inherit", "fontColor": "#9fe7ff", "isTransparent": true, "lineType": 0
       }
       </script>
     </div>
   </div>
 
-  <!-- ТЕПЛОВА КАРТА -->
+  <!-- РЕЗОНАТОР 4 -->
   <div class="category-header">IV. ТЕПЛОВА МАТРИЦЯ КАПІТАЛУ</div>
   <div class="alert-matrix">
-    <div class="matrix-title">АНАЛІТИЧНА ДОВІДКА: ВІЗУАЛІЗАЦІЯ ПРИТОКУ</div>
-    <div class="alert-desc">
-      <ul>
-        <li><b>🟩 Насичений зелений (Великий квадрат):</b> Агресивна скупка алгоритмами (Маркетмейкерами) об'ємів на спот-ринку. Гроші зосереджені тут.</li>
-        <li><b>🟥 Темно-червоний:</b> Каскадні ліквідації, інституціонали зливають актив (скидають "мішки").</li>
-        <li><b>⬛ Світло-сірий / Малі квадрати:</b> Мертва зона (брак ліквідності), актив у довгостроковій стадії акумуляції, гравці втратили до нього гострий інтерес.</li>
-        <li style="color:#0ff; margin-top:8px;"><b>ПРО-РАДА:</b> Шукайте "зелені острови" в червоному морі. Якщо весь крипторинок падає, а один специфічний сектор (наприклад RWA або AI) стабільно зелений — саме він і очолить наступний великий буллран.</li>
-      </ul>
-    </div>
+    <div class="matrix-title">ВІЗУАЛІЗАЦІЯ ВОЛЮМЕТРИЧНОГО ПРИТОКУ</div>
+    <div class="alert-desc">Тут ви бачите "зелені острови" (сфери вливання інституційних грошей) або "червоне море" (каскадні ліквідації) у реальному часі.</div>
   </div>
   <div class="tv-widget" style="height:600px;">
     <div class="tradingview-widget-container">
       <div class="tradingview-widget-container__widget"></div>
       <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async>
       {
-        "dataSource": "Crypto",
-        "blockSize": "market_cap_calc",
-        "blockColor": "change",
-        "locale": "uk",
-        "symbolUrl": "",
-        "colorTheme": "dark",
-        "hasTopBar": true,
-        "isDataSetEnabled": false,
-        "isZoomEnabled": true,
-        "hasSymbolTooltip": true,
-        "width": "100%",
-        "height": "100%"
+        "dataSource": "Crypto", "blockSize": "market_cap_calc", "blockColor": "change",
+        "locale": "uk", "colorTheme": "dark", "hasTopBar": true, "isZoomEnabled": true,
+        "width": "100%", "height": "100%"
       }
       </script>
     </div>
   </div>
 
-  <div id="footer">© IBONARIUM RESONATOR CORE • ADVANCED AI DATA METRICS</div>
+  <!-- ФІНАЛЬНИЙ ЗВІТ -->
+  <div class="category-header category-header-pink">V. СИНТЕТИЧНИЙ ЗВІТ АЛГОРИТМУ (24H)</div>
+  <div class="alert-matrix ai-matrix">
+    <div class="matrix-title pink-title">ГЛОБАЛЬНИЙ ОПЕРАТИВНИЙ РЕЗЮМЕ</div>
+    <div id="algo-summary">
+      <div class="alert-box bg-info">⏳ Акумуляція даних зі всіх модулів та генерація звіту...</div>
+    </div>
+  </div>
+
+  <div id="footer">© IBONARIUM RESONATOR CORE • AI DATA ANALYTICS</div>
 </div>
 
 <script>
-// ===== ВІЗУАЛІЗАЦІЯ ФОНУ =====
+// ===== ЗОРЯНИЙ ФОН =====
 const s=document.getElementById("stars"); const ctx=s.getContext("2d");
 let W,H,stars=[];
 function resize(){W=s.width=window.innerWidth; H=s.height=window.innerHeight; stars=Array.from({length:200},()=>({x:Math.random()*W,y:Math.random()*H,z:Math.random()*W}));}
 resize(); window.addEventListener("resize",resize);
 function draw(){
-  ctx.fillStyle="rgba(0, 0, 0, 0.8)"; 
-  ctx.fillRect(0,0,W,H); 
-  ctx.fillStyle="#0ff"; 
+  ctx.fillStyle="rgba(0, 0, 0, 0.85)"; ctx.fillRect(0,0,W,H); ctx.fillStyle="#0ff"; 
   stars.forEach(st=>{
     st.z-=0.4; if(st.z<=0) st.z=W; 
-    const k=128/st.z; 
-    const x=(st.x-W/2)*k+W/2; 
-    const y=(st.y-H/2)*k+H/2; 
-    if(x>0&&x<W&&y>0&&y<H){
-      const size=(1-st.z/W)*2; 
-      ctx.fillRect(x,y,size,size);
-    }
-  }); 
-  requestAnimationFrame(draw);
+    const k=128/st.z; const x=(st.x-W/2)*k+W/2; const y=(st.y-H/2)*k+H/2; 
+    if(x>0&&x<W&&y>0&&y<H) { ctx.fillRect(x,y,(1-st.z/W)*2,(1-st.z/W)*2); }
+  }); requestAnimationFrame(draw);
 }
 draw();
 
-// ===== ФЕТЧИНГ СИРОВИНИ (YAHOO FINANCE PROXY) =====
+// ===== ФЕТЧ СИРОВИНИ =====
 async function getYahooData(ticker) {
   try {
     const url = `https://corsproxy.io/?${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/' + ticker)}`;
@@ -373,85 +350,101 @@ async function getYahooData(ticker) {
     const p = d.chart.result[0].meta.regularMarketPrice;
     const prev = d.chart.result[0].meta.chartPreviousClose;
     return ((p - prev) / prev) * 100;
-  } catch(e) {
-    return null; // У разі блокування повертає null для граціозної обробки
-  }
+  } catch(e) { return null; }
 }
 
-// ===== ОНЛАЙН АЛГОРИТМ =====
+// ===== АЛГОРИТМ =====
 async function runAutoAnalyzer() {
   try {
-    // 1. Отримуємо дані з Binance (Крипта + Золото PAXG + ЄвроПроксі)
+    // Дані (Крипта + Золото + DXY Проксі)
     const symbols = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "DOGEUSDT", "PAXGUSDT", "EURUSDT"];
-    const responses = await Promise.all(
-      symbols.map(sym => fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${sym}`).then(r => r.json()))
-    );
-    
+    const responses = await Promise.all(symbols.map(sym => fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${sym}`).then(r => r.json())));
     const data = {};
     responses.forEach(r => { if (r.symbol) data[r.symbol] = parseFloat(r.priceChangePercent); });
 
     const btc = data["BTCUSDT"] || 0;
     const gold = data["PAXGUSDT"] || 0;
-    const dxyProxy = -(data["EURUSDT"] || 0); // Інверсія курсу Євро для розуміння сили Долара
-
+    const dxyProxy = -(data["EURUSDT"] || 0); 
     const eth = data["ETHUSDT"] || 0;
     const sol = data["SOLUSDT"] || 0;
     const doge = data["DOGEUSDT"] || 0;
 
-    // --- МОДУЛЬ 1: RISK-ON / RISK-OFF ---
+    // --- МОДУЛЬ 1: РИЗИК ---
     let riskHtml = "";
-    if (dxyProxy > 0.3 && gold > 0.1 && btc < 0) {
-      riskHtml = `<div class="alert-box bg-danger">🔴 ВТЕЧА В ДОЛАР (RISK-OFF) <span class="status-subtitle">ДЕТАЛІ: Долар зміцнюється (+${dxyProxy.toFixed(2)}%), Золото росте, Біткоїн страждає (${btc.toFixed(2)}%). Великий капітал в паніці розпродає ризик і ховається в готівку та метали. Фондові біржі готуються до розпродажу.</span></div>`;
-    } else if (btc > 1.5 && dxyProxy < -0.1) {
-      riskHtml = `<div class="alert-box bg-success">🟢 ЗЕЛЕНЕ СВІТЛО (СИЛЬНИЙ RISK-ON) <span class="status-subtitle">ДЕТАЛІ: Долар падає (${dxyProxy.toFixed(2)}%), ліквідність масштабної хвилею заливається у Біткоїн (+${btc.toFixed(2)}%). Ідеальний час для тримання лонг-позицій. Економіка підживлює апетит до ризику.</span></div>`;
-    } else if (btc > 0 && btc > gold) {
-      riskHtml = `<div class="alert-box bg-info">🔵 ОБЕРЕЖНИЙ АПЕТИТ <span class="status-subtitle">ДЕТАЛІ: Біткоїн (+${btc.toFixed(2)}%) сильніший за Золото (+${gold.toFixed(2)}%). Інвестори продовжують ризикувати, але тотальної ейфорії або підтримки макроекономіки (падіння DXY) ще немає.</span></div>`;
-    } else if (btc < -2) {
-      riskHtml = `<div class="alert-box bg-warning">⚠️ ОЧІКУВАННЯ АБО СКОТЕЧА <span class="status-subtitle">ДЕТАЛІ: Біткоїн втрачає пункти (${btc.toFixed(2)}%), але колосальної паніки в Доларі чи Золоті немає. Це локальна стагнація (зривання стоп-лоссів ритейлу) без макроекономічних причин.</span></div>`;
-    } else {
-      riskHtml = `<div class="alert-box bg-info">⚪️ ТИША (ФЛЕТОВИЙ ДЕПРЕСНЯК) <span class="status-subtitle">ДЕТАЛІ: Зміни незначні. Маркетмейкери не приймають рішень (BTC: ${btc.toFixed(2)}%, DXY Proxy: ${dxyProxy.toFixed(2)}%). Ринок акумулює енергію перед наступним імпульсом.</span></div>`;
-    }
+    if (dxyProxy > 0.3 && gold > 0.1 && btc < 0) riskHtml = `<div class="alert-box bg-danger">🔴 ВТЕЧА В ДОЛАР (RISK-OFF) <span class="status-subtitle">ДЕТАЛІ: Долар зміцнюється (+${dxyProxy.toFixed(2)}%), Золото росте, Біткоїн страждає (${btc.toFixed(2)}%). Великий капітал в паніці скидає ризик.</span></div>`;
+    else if (btc > 1.5 && dxyProxy < -0.1) riskHtml = `<div class="alert-box bg-success">🟢 ЗЕЛЕНЕ СВІТЛО (СИЛЬНИЙ RISK-ON) <span class="status-subtitle">ДЕТАЛІ: Долар падає (${dxyProxy.toFixed(2)}%), ліквідність масштабної хвилею заливається у Біткоїн (+${btc.toFixed(2)}%). Ідеальні умови для лонгів.</span></div>`;
+    else if (btc > 0 && btc > gold) riskHtml = `<div class="alert-box bg-info">🔵 ОБЕРЕЖНИЙ АПЕТИТ <span class="status-subtitle">ДЕТАЛІ: Біткоїн (+${btc.toFixed(2)}%) сильніший за Золото. Інвестори ризикують, але тотальної ейфорії ще немає.</span></div>`;
+    else riskHtml = `<div class="alert-box bg-warning">⚠️ ОЧІКУВАННЯ / БОКОВИК <span class="status-subtitle">ДЕТАЛІ: Зміни незначні (BTC: ${btc.toFixed(2)}%, DXY: ${dxyProxy.toFixed(2)}%). Ринок в стані технічного флету.</span></div>`;
     document.getElementById("algo-risk").innerHTML = riskHtml;
 
-    // --- МОДУЛЬ 2: ІНФЛЯЦІЯ (Проксі до Нафти і Міді через Yahoo CORS) ---
-    let infHtml = "";
+    // --- МОДУЛЬ 2: ІНФЛЯЦІЯ ---
     const oilChange = await getYahooData('CL=F');
     const copperChange = await getYahooData('HG=F');
+    const oilVal = oilChange !== null ? oilChange : 0;
+    const copperVal = copperChange !== null ? copperChange : 0;
 
-    if (oilChange === null || copperChange === null) {
-      infHtml = `<div class="alert-box bg-warning">⚠️ ТЕХНІЧНА ПАУЗА (ОЧІКУВАННЯ ДАНИХ) <span class="status-subtitle">Світова Біржа CME тимчасово обмежила пряму віддачу пакетів для алгоритму. Будь ласка, оцініть тренд інфляції візуально на графіку нижче (Дивіться на синю лінію Нафти та фіолетову Міді).</span></div>`;
-    } else if (oilChange > 2) {
-      infHtml = `<div class="alert-box bg-danger">🔴 ГОСТРА ІНФЛЯЦІЙНА ЗАГРОЗА <span class="status-subtitle">ДЕТАЛІ: Нафта зростає на ${oilChange.toFixed(2)}% за добу. Це підвищує ризик зростання інфляції (CPI), Центробанки не зможуть пом'якшувати економіку (високі кредити). Крипто-активи під величезним тиском.</span></div>`;
-    } else if (copperChange > oilChange && copperChange > 0.5) {
-      infHtml = `<div class="alert-box bg-success">🟢 ПРОМИСЛОВИЙ ОПТИМІЗМ <span class="status-subtitle">ДЕТАЛІ: Мідь зростає (+${copperChange.toFixed(2)}%), випереджаючи нафту (${oilChange.toFixed(2)}%). Світова індустрія розширюється, рецесією поки не пахне. Прекрасний фон для ризикових інвестицій (DeFi, AI).</span></div>`;
-    } else if (oilChange < -1.5) {
-      infHtml = `<div class="alert-box bg-info">🔵 ЗГАСАННЯ ІНФЛЯЦІЇ (ЕНЕРГІЯ ДЕШЕВШАЄ) <span class="status-subtitle">ДЕТАЛІ: Нафта активно падає (${oilChange.toFixed(2)}%). Це послаблює інфляційний тиск. Інвестори очікуватимуть зниження відсоткових ставок (друку грошей), що дає довгостроковий позитивний сигнал маркету.</span></div>`;
-    } else {
-      infHtml = `<div class="alert-box bg-warning">⚠️ МАКРО-БАЛАНС (СТАГНАЦІЯ В РЕАЛЬНОМУ СЕКТОРІ) <span class="status-subtitle">ДЕТАЛІ: Коливання мінімальні (Нафта: ${oilChange.toFixed(2)}%, Мідь: ${copperChange.toFixed(2)}%). Ресурсний сектор чекає на нові макроекономічні дані (наприклад, звіт з безробіття або засідання ФРС).</span></div>`;
-    }
+    let infHtml = "";
+    if (oilChange === null || copperChange === null) infHtml = `<div class="alert-box bg-warning">⚠️ ТЕХНІЧНА ПАУЗА <span class="status-subtitle">CME Group тимчасово обмежила віддачу даних. Оцініть інфляцію візуально на графіку.</span></div>`;
+    else if (oilChange > 2) infHtml = `<div class="alert-box bg-danger">🔴 ГОСТРА ІНФЛЯЦІЙНА ЗАГРОЗА <span class="status-subtitle">ДЕТАЛІ: Нафта зростає на ${oilChange.toFixed(2)}%. ФРС триматиме високі ставки. Крипта під тиском.</span></div>`;
+    else if (copperChange > oilChange && copperChange > 0.5) infHtml = `<div class="alert-box bg-success">🟢 ПРОМИСЛОВИЙ ОПТИМІЗМ <span class="status-subtitle">ДЕТАЛІ: Мідь зростає (+${copperChange.toFixed(2)}%). Світова індустрія розширюється. Прекрасний фон для ризикових активів.</span></div>`;
+    else if (oilChange < -1.5) infHtml = `<div class="alert-box bg-info">🔵 ЗГАСАННЯ ІНФЛЯЦІЇ <span class="status-subtitle">ДЕТАЛІ: Нафта активно падає (${oilChange.toFixed(2)}%). Інвестори очікуватимуть зниження відсоткових ставок (друку грошей).</span></div>`;
+    else infHtml = `<div class="alert-box bg-warning">⚠️ МАКРО-БАЛАНС <span class="status-subtitle">ДЕТАЛІ: Коливання мінімальні (Нафта: ${oilVal.toFixed(2)}%, Мідь: ${copperVal.toFixed(2)}%). Ринок чекає на нові економічні звіти.</span></div>`;
     document.getElementById("algo-inflation").innerHTML = infHtml;
 
     // --- МОДУЛЬ 3: АЛЬТСЕЗОН ---
     let altHtml = "";
-    if (doge > btc + 4 && doge > 8) {
-      altHtml = `<div class="alert-box bg-danger">🔴 МЕМ-ПУЗИР (ФОМО НАТОВПУ) <span class="status-subtitle">ДЕТАЛІ: Шалений памп Dogecoin (+${doge.toFixed(2)}%). Статистично це фінальна стадія росту усього маркету (роздача "мішків" натовпу). Інституціонали готуються обвалити ринок і забрати гроші. Будьте максимально обережні!</span></div>`;
-    } else if (eth > btc + 1 && sol > btc + 1) {
-      altHtml = `<div class="alert-box bg-success">🟢 РОЗГОРТАННЯ АЛЬТСЕЗОНУ <span class="status-subtitle">ДЕТАЛІ: Ethereum (+${eth.toFixed(2)}%) та Solana (+${sol.toFixed(2)}%) явно обганяють Біткоїн. "Розумний капітал" фіксує прибутки з консервативного Біткоїна і агресивно переливає їх у технологічні платформи.</span></div>`;
-    } else if (btc > eth + 1 && btc > sol + 1 && btc > 1.5) {
-      altHtml = `<div class="alert-box bg-warning">⚠️ ВАКУУМ ДОМІНАЦІЇ (КРОВОПИВЦЯ) <span class="status-subtitle">ДЕТАЛІ: Біткоїн (+${btc.toFixed(2)}%) висмоктує всю нову ліквідність у себе. Всі інші монети стоять або задихаються. Наразі немає сенсу купувати альткоїни, краще дочекатися зупинки росту BTC.</span></div>`;
-    } else {
-      altHtml = `<div class="alert-box bg-info">🔵 СИНХРОННИЙ БОКОВИК <span class="status-subtitle">ДЕТАЛІ: Ринок знаходиться у фазі консолідації. Активи крокують синхронно без лідерства або відставання. Назріває момент прийняття рішення маркетмейкером. (BTC: ${btc.toFixed(2)}%, ETH: ${eth.toFixed(2)}%).</span></div>`;
-    }
+    if (doge > btc + 4 && doge > 8) altHtml = `<div class="alert-box bg-danger">🔴 МЕМ-ПУЗИР (ФОМО) <span class="status-subtitle">ДЕТАЛІ: Памп Dogecoin (+${doge.toFixed(2)}%). Зазвичай це фінал росту ринку перед жорсткою корекцією. Обережно!</span></div>`;
+    else if (eth > btc + 1 && sol > btc + 1) altHtml = `<div class="alert-box bg-success">🟢 РОЗГОРТАННЯ АЛЬТСЕЗОНУ <span class="status-subtitle">ДЕТАЛІ: ETH (+${eth.toFixed(2)}%) та SOL (+${sol.toFixed(2)}%) обганяють BTC. Капітал переливається у великі екосистеми смарт-контрактів.</span></div>`;
+    else if (btc > eth + 1 && btc > sol + 1 && btc > 1.5) altHtml = `<div class="alert-box bg-warning">⚠️ ВАКУУМ ДОМІНАЦІЇ <span class="status-subtitle">ДЕТАЛІ: Біткоїн (+${btc.toFixed(2)}%) висмоктує ліквідність. Альти стоять на місці або падають відносно нього.</span></div>`;
+    else altHtml = `<div class="alert-box bg-info">🔵 СИНХРОННИЙ БОКОВИК <span class="status-subtitle">ДЕТАЛІ: Активи крокують синхронно. Маркетмейкер ще не обрав сектор для пампу. (BTC: ${btc.toFixed(2)}%, ETH: ${eth.toFixed(2)}%).</span></div>`;
     document.getElementById("algo-alt").innerHTML = altHtml;
 
+    // --- ФІНАЛЬНИЙ ЗВІТ (МОДУЛЬ 5) ---
+    let macroText = "";
+    if (oilVal > 1.5) macroText += `Глобальний інфляційний тиск зростає (Нафта: +${oilVal.toFixed(2)}%), що може змусити Центробанки утримувати високі відсоткові ставки, "сушачи" ліквідність. `;
+    else if (oilVal < -1) macroText += `Спостерігається послаблення енергетичного тиску (Нафта: ${oilVal.toFixed(2)}%), економіка має простір для стимулювання. `;
+    else macroText += `Енергетичний сектор відносно спокійний без різких перепадів. `;
+    
+    if (copperVal > 1) macroText += `Позитивний попит на Мідь (+${copperVal.toFixed(2)}%) індикує стабільне промислове виробництво. `;
+    if (dxyProxy > 0.3) macroText += `Разом з цим Індекс Долара демонструє домінантну силу (+${dxyProxy.toFixed(2)}%), що є потужним бар'єром (гроші зберігають в фіаті). `;
+    else if (dxyProxy < -0.3) macroText += `Послаблення Долара (${dxyProxy.toFixed(2)}%) слугує сьогодні вікном можливостей для міжнародних інвестицій. `;
+
+    let cryptoText = "";
+    if (btc > 2) {
+      cryptoText += `Крипторинок очолює Біткоїн (+${btc.toFixed(2)}%). `;
+      cryptoText += (eth < btc) ? `Кореляційні активи (L1-екосистеми) наразі страждають від нестачі притоку через Вакуум Домінації BTC.` : `Гроші органічно переходять у смарт-контракти (ETH: +${eth.toFixed(2)}%).`;
+    } else if (btc < -2) {
+      cryptoText += `Цифрове золото (BTC) зазнає корекційного тиску (${btc.toFixed(2)}%). Захисні портфелі перемикаються у фіатні гавані. `;
+    } else {
+      cryptoText += `Ринок консолідує об'єми навколо поточних позначок (BTC: ${btc.toFixed(2)}%). `;
+      if (eth > 1.5 || sol > 1.5) cryptoText += `Ця тиша конвертується у успішний локальний Альтсезон (Solana: +${sol.toFixed(2)}%). `;
+    }
+    if (doge > 8) cryptoText += `Особливим ризиком є аномальний памп мем-сегменту (+${doge.toFixed(2)}%), що історично вказує на гарячу та нестабільну публіку ритейлу. `;
+
+    let verdictText = ""; let vClass = "";
+    let score = btc + (eth * 0.5) + (dxyProxy * -2) + (oilVal * -0.5);
+
+    if (score > 4) { verdictText = "БИЧИЙ ТРЕНД (ПРИТІК ЛІКВІДНОСТІ). Інфраструктура зелених показників дає дозвіл на інтенсивне утримання позицій."; vClass = "bg-success"; }
+    else if (score < -3) { verdictText = "ВТЕЧА КАПІТАЛУ (ШОК). Система фіксує перехід грошей алгоритмами в Кеш та Долар. Оптимально хеджувати портфелі."; vClass = "bg-danger"; }
+    else if (dxyProxy > 0.5 && btc < 0) { verdictText = "ТЕРМІНАЛЬНИЙ ТИСК ДОЛАРА. Маркет втрачає капіталізацію через міцний фіат. Альткоїни будуть поступово виснажуватись."; vClass = "bg-warning"; }
+    else if (btc > 0 && eth > btc) { verdictText = "РОТАЦІЯ АКТИВІВ (ФАЗА ВІДПРАЦЮВАННЯ АЛЬТІВ). Рекомендовано фокусуватись на екосистемах другого рівня та сильних наративах."; vClass = "bg-info"; }
+    else { verdictText = "КОНСОЛІДАЦІЯ. Ліквідність збалансована. Алгоритм не вбачає очевидних перекосів для агресивної торгівлі прямо зараз."; vClass = "bg-info"; }
+
+    document.getElementById("algo-summary").innerHTML = `
+      <div class="alert-box ${vClass}" style="margin-bottom: 20px; font-size:16px;">
+        🏁 ПІДСУМКОВИЙ ВЕРДИКТ:<br><span style="font-weight:normal; font-size:14px;">${verdictText}</span>
+      </div>
+      <div class="report-p"><span class="head">🌍 МАРО-СИТУАЦІЯ:</span> ${macroText || "Макроекономічні індикатори перебувають у стані повного спокою."}</div>
+      <div class="report-c"><span class="head">⛓ КРИПТО-СЕКТОР:</span> ${cryptoText || "Ринок залишається у площині зниженої волатильності без явних спекулятивних загострень."}</div>
+    `;
+
   } catch (error) {
-    console.warn("Помилка алгоритму аналізу:", error);
+    document.getElementById("algo-summary").innerHTML = `<div class="alert-box bg-warning">Помилка генерації звіту через відсутність доступу до макро-даних.</div>`;
   }
 }
 
-// Запуск відразу та інтервал у 20 сек
 runAutoAnalyzer();
-setInterval(runAutoAnalyzer, 20000);
+setInterval(runAutoAnalyzer, 30000);
 </script>
 </body>
 </html>
